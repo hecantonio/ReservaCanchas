@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from Reserva import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('getInfoCanchaById/<int:id_cancha>', views.getInfoCanchaById, name='getInfoCanchaById'),
+    path('getPersonaById/<int:id_persona>', views.getPersonaById, name='getPersonaById'),
 ]
