@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Cancha, Persona
+from django.views.generic import TemplateView
+
+
 
 # Create your views here.
 
@@ -14,3 +17,5 @@ def getPersonaById(request, id_persona):
     result = f"Nombre: {persona.nombre}<br>Apellido: {persona.apellido}<br>Correo: {persona.correo}"
     return HttpResponse(result)
 
+class MainView(TemplateView):
+    template_name = "main.html"
