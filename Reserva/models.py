@@ -4,10 +4,10 @@ from datetime import date
 
 # Create your models here.
 class Persona(models.Model):
+    user = models.OneToOneField('auth.user', on_delete=models.PROTECT, related_name='user', default=None)
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=30)
     cedula = models.CharField(max_length=10)
-    correo = models.CharField(max_length=50, null=True, blank=True)
     telefono = models.CharField(max_length=30, null=True, blank=True)
 
 class Cancha(models.Model):
