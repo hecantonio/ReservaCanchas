@@ -1,0 +1,25 @@
+
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Canchas</title>
+  
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    <h1>Canchas</h1>
+    <div>
+
+        {% for id_cancha, nombre_cancha in listado  %}
+        <li>
+            <a href="/getInfoCanchaById/{{id_cancha}}"> {{nombre_cancha}} </a>
+        </li>
+
+        {% endfor %}
+
+
+    </div>    
+
+</body>
+</html>

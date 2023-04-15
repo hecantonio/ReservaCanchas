@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Cancha, Persona
+from .models import Cancha, Persona, Horario
 from django.views.generic import TemplateView
 
 
@@ -9,13 +9,25 @@ from django.views.generic import TemplateView
 
 def getInfoCanchaById(request, id_cancha):
     cancha = Cancha.objects.get(id=id_cancha)
-    result = f"<h3>Cancha: {cancha.nombre}, Descripción: {cancha.descripcion}</h3>"
-    return HttpResponse(result)
+    horarios = Horario.objects.filter(cancha_id= cancha.id)
+    #result = f"<h3>Cancha: {cancha.nombre}, Descripción: {cancha.descripcion}</h3>"
+    #return HttpResponse(result)
+    return render(request, 'cancha.html', { 'nombre_cancha': cancha.nombre, 'desc_cancha': cancha.descripcion, 'horarios' : horarios})
 
-def getPersonaById(request, id_persona):
+
+def getInfoPersonaById(request ,id_persona):
+    #obtener Persona por su id
     persona = Persona.objects.get(id=id_persona)
-    result = f"Nombre: {persona.nombre}<br>Apellido: {persona.apellido}<br>Correo: {persona.correo}"
+    result = f"Cancha: {persona.nombre}, Descripción: {persona.apellido} y tu correo es {persona.correo} ."
     return HttpResponse(result)
 
 class MainView(TemplateView):
     template_name = "main.html"
+
+def getListadoCanchas(request ):
+    canchas = Cancha.objects.all()
+    nombre_canchas = []
+    for cancha in canchas:
+        nombre_canchas.append((cancha.id, cancha.nombre))
+
+    return render(request, "canchas.html", {'listado':nombre_canchas})
